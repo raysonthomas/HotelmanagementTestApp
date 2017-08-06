@@ -112,10 +112,13 @@ public class Create {
 //		String text = doc.body().text();  
 		
 		//driver.findElement(By.cssSelector("span[class='glyphicon glyphicon-remove hotelDelete'][id='15']")).click();
-		driver.findElement(By.cssSelector("div:contains('abc@abc.com')+div>class:contains('glyphicon glyphicon-remove hotelDelete'))")).click();
+//		driver.findElement(By.cssSelector("body > div > div:nth-child(7) > div.hotelRow > div:nth-child(5) > p")).click();
+		driver.findElement(By.xpath("//div[@class='col-sm-2'][contains(.,'abc@abc.com')]")).click();
+//		driver.findElement(By.xpath("//div[@class='col-sm-2'][contains(.,'abc@abc.com')]/div>input[@type='hidden']")).click();
 		
+				
 		
-		}
+}
 		
 		
 		
