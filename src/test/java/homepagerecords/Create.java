@@ -3,8 +3,9 @@ package homepagerecords;
 import java.util.List;
 import java.util.Set;
 
+//import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
+//import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchWindowException;
 import org.openqa.selenium.WebDriver;
@@ -12,25 +13,16 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.jsoup.Jsoup;
-import org.jsoup.helper.*;
-import org.jsoup.nodes.Document;
 
-//import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
-
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
+import cucumber.api.java.en.*;
 import org.openqa.selenium.WebElement;
 
 public class Create {
-	private WebDriver driver;
+	public WebDriver driver;
 
 	@Before
-	public void setUp() throws Exception {
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-
-	}
 
 	@Given("^user navigates to the login page$")
 	public void user_navigate_to_the_login_page() throws Throwable {
@@ -41,12 +33,11 @@ public class Create {
 
 	@And("^user clicks on '(.*)' link and enters username and password$")
 	public void user_clicks_on_button_and_enters_credentials(String name) {
-		driver.findElement(By.linkText(name)).click();
 		String parentwin = driver.getWindowHandle();
+		driver.findElement(By.linkText(name)).click();
+
 		Set<String> allWin = driver.getWindowHandles();
-		for (int i = 0; i < 2; i++) {
-			System.out.println(allWin);
-		}
+
 		if (!allWin.isEmpty()) {
 			for (String winId : allWin) {
 				driver.switchTo().window(winId);
@@ -98,32 +89,22 @@ public class Create {
 	public void user_clicks_create_button() {
 		driver.findElement(By.id("createHotel")).click();
 	}
-	
 
+	// Have left the test at clicking a row of hotel, as not able to locate the
+	// delete button
 	@Then("^user clicks on X button to delete Hotel1 record$")
 	public void user_deletes_record() {
-		
-//		List<WebElement> lsts = driver.findElemnts(By.className("glyphicon glyphicon-remove hotelDelete"));
-//		for (WebElement lst:lsts) {
-//			System.out.println(lst.getAttribute("id"));
-		
-//		String html = driver.getPageSource();
-//		Document doc = Jsoup.parse(html);
-//		String text = doc.body().text();  
-		
-		//driver.findElement(By.cssSelector("span[class='glyphicon glyphicon-remove hotelDelete'][id='15']")).click();
-//		driver.findElement(By.cssSelector("body > div > div:nth-child(7) > div.hotelRow > div:nth-child(5) > p")).click();
+
 		driver.findElement(By.xpath("//div[@class='col-sm-2'][contains(.,'abc@abc.com')]")).click();
-//		driver.findElement(By.xpath("//div[@class='col-sm-2'][contains(.,'abc@abc.com')]/div>input[@type='hidden']")).click();
-		
-				
-		
-}
-		
-		
-		
-		
+		// driver.findElement(By.xpath("//div[@class='col-sm-2'][contains(.,'abc@abc.com')]//span[@class='hotelDelete']")).click();
 
 	}
 
-
+	@After
+	public void tearDown() {
+		Set<String> allWin = driver.getWindowHandles();
+		for (String winId : allWin) {
+			driver.switchTo().window(winId).quit();
+		}
+	}
+}
