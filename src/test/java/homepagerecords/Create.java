@@ -1,28 +1,18 @@
 package homepagerecords;
 
-import java.util.List;
 import java.util.Set;
-
-//import org.junit.After;
 import org.junit.Assert;
-//import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchWindowException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import cucumber.api.java.After;
-import cucumber.api.java.Before;
 import cucumber.api.java.en.*;
-import org.openqa.selenium.WebElement;
 
 public class Create {
 	public WebDriver driver;
-
-	@Before
 
 	@Given("^user navigates to the login page$")
 	public void user_navigate_to_the_login_page() throws Throwable {
@@ -90,21 +80,18 @@ public class Create {
 		driver.findElement(By.id("createHotel")).click();
 	}
 
-	// Have left the test at clicking a row of hotel, as not able to locate the
-	// delete button
-	@Then("^user clicks on X button to delete Hotel1 record$")
+	@Then("^user clicks on X button to delete Hotel record$")
 	public void user_deletes_record() {
 
-		driver.findElement(By.xpath("//div[@class='col-sm-2'][contains(.,'abc@abc.com')]")).click();
-		// driver.findElement(By.xpath("//div[@class='col-sm-2'][contains(.,'abc@abc.com')]//span[@class='hotelDelete']")).click();
-
+		// driver.findElement(By.xpath("//div[@class='col-sm-2'][contains(.,'abc@abc.com')]")).click();
+		driver.findElement(By.xpath("//span[starts-with(@class,'glyphicon')]")).click();
 	}
 
 	@After
 	public void tearDown() {
 		Set<String> allWin = driver.getWindowHandles();
 		for (String winId : allWin) {
-			driver.switchTo().window(winId).quit();
+			driver.switchTo().window(winId).close();
 		}
 	}
 }
