@@ -91,7 +91,7 @@ public class Create {
 	public void tearDown() {
 		Set<String> allWin = driver.getWindowHandles();
 		for (String winId : allWin) {
-			driver.switchTo().window(winId).close();
+			driver.switchTo().window(winId).quit();
 		}
 	}
 }
